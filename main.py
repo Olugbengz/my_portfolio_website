@@ -10,7 +10,7 @@ import os
 
 
 app = Flask(__name__)
-app.secret_key = "@olu#Emma/gb4$ebg!a@"
+app.secret_key = "MY_SECRET_KEY"
 Bootstrap(app)
 
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///subscribers.db"
