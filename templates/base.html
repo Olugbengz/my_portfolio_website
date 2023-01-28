@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title> {% block title %} Olugbenga Okundaye - Resume {% endblock %}</title>
+    {% block styles %}
+      <!-- styles -->
+      <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css' )}}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Lobster&family=Roboto&family=Roboto+Slab:wght@100;200;400;500;600;800&family=Ubuntu:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icon -->
+    <script src="https://kit.fontawesome.com/c1c2be5c62.js" crossorigin="anonymous"></script>
+    {% endblock %}
+</head>
+<body>
+{% import "bootstrap/wtf.html" as wtf %}
+ <section id="title">
+      <!-- Navigation -->
+      <div class="overlay"></div>
+      <div class="container-md">
+      <nav class="navbar navbar-expand-lg navbar-dark">
+        <a class="navbar-brand" href="#"><img src="static/images/logo1.jpg" width="60" height="60"></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link active" href="{{ url_for('home')}}">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('life_coach')}}">Life Coaching</a></li>
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('blog_post')}}">Blog</a></li>
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('contact_me')}}">Contact</a></li>
+        </ul>
+      </div>
+    </nav>
+<header> {% block header %} {% endblock %} </header>
+</div>
+ </section>
+
+ {% block content %} {% endblock %}
+
+
+
+<section id="footer">{% block footer %}
+
+    <div class="container">
+   <div class="row">
+     <div class="col-lg-4">
+       <h4>Navigation</h4>
+       <nav class="footer-nav">
+         <a class="nav-link" href="#">About </a>
+         <a class="nav-link" href="#">My CV</a>
+         <a class="nav-link" href="#">Projects</a>
+         <a class="nav-link" href="#">Life Coaching</a>
+         <a class="nav-link" href="#">Contact</a>
+       </nav>
+     </div>
+
+     <div class="col-lg-4">
+       <h4>Social</h4>
+       <div class="">
+         <a href="https://www.twitter.com/OlugbengaOkund2"><i class="fa fa-twitter-square fa-3x footer-icons"></i></a>
+         <a href="https://www.facebook.com/energyfor2day"><i class="fa fa-facebook-square fa-3x footer-icons"></i></a>
+         <a href="https://www.instagram.com/olugbengaokundaye"><i class="fa fa-instagram fa-3x footer-icons"></i></a>
+
+       </div>
+     </div>
+     <div class="col-lg-4">
+        <h4>Connect</h4>
+       <p>Get Nofitications for our Podcast/Newsletter</p>
+       <!-- Task for Next Week: Change this to flask form -->
+         <div class="footer-email-box">
+             {{ wtf.quick_form(form, button_map={"submit":"btn btn-outline-light mt-2 p-1"}) }}
+         </div>
+
+     </div>
+   </div>
+ </div>
+ <hr class="footer-hr">
+ <div class="copyright">
+   <p>© Copyright 2022 <span>Olugbenga Okundaye</span> </p>
+ </div>
+
+{% endblock %}
+    </section>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+</body>
+</html>

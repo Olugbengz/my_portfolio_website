@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %} Contact {% endblock %}
+{% block styles %}
+    {{ super() }}
+    <style>
+        #title { background-image: url("static/images/contact2.png"); background-size: cover; background-repeat: no-repeat;  }
+
+    </style>
+{% endblock %}
+
+
+
+{% block header %}
+<section class="title_coach">
+<div class="row">
+     <div class="col-lg-12 m-auto">
+         <div class="lch-title">
+             <h1 class="lch-text">Contact Me</h1>
+            <p>Can't wait to solve your business,
+          mindset or life coaching challenge, send your message.</p>
+         </div>
+         </div>
+</div>
+    </section>
+{% endblock %}
+
+{% block content %}
+
+
+<!--      <h3 class="section-title">Contact Me</h3>-->
+
+
+         <div class="contact-form">
+
+         <div class="contact-text">
+
+           <h1></h1>
+
+         <p> </p>
+        </div>
+
+              {{ wtf.quick_form(msg_form, novalidate=True, button_map={"submit":"btn btn-primary mt-3 p-2.5"}) }}
+         </div>
+
+{% endblock %}

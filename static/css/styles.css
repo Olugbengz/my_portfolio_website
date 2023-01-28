@@ -1,0 +1,220 @@
+/* Title Section */
+#title {
+  height: 750px;
+  /*background-image: url("/static/images/podcast.jpg");
+  background-size: cover;
+  background-repeat: no-repeat; */
+  padding: 0 10% 0;
+  background-color: #66553b;
+  color: #fff;
+}
+
+h2 h4 {
+  font-family: "Roboto", sans-serif;
+}
+
+p {
+  font-family: "Roboto", sans-serif;
+  line-height: 1.5rem;
+}
+
+.content-text {
+  padding-top: 0;
+  width: 100%;
+  text-align: justify;
+  line-height: 1.5rem;
+  line-spacing: 0.5rem;
+  font-size: 1.1rem;
+  font-family: "Roboto", sans-serif;
+  font-weight: 300;
+}
+
+.header-a {
+    position: relative;
+    z-index: 10;
+}
+
+.overlay {
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    background: rgba(86, 86, 86, 0.5);
+    z-index: 0;
+}
+.container-md {
+  padding: 2% 15% 7%;
+}
+
+.navbar {
+  padding: 0 0 4.5rem;
+}
+
+.navbar-brand {
+  font-family: 'Lobster', cursive;
+  font-weight: 800;
+}
+
+.nav-item {
+  padding: 0 14px;
+}
+
+.nav-link {
+  font-size: 1.2rem;
+
+}
+
+.header-text {
+  margin-top: 35%;
+  font-size: 3rem;
+  font-family: 'Roboto Slab', serif;
+  font-weight: 800;
+  margin-left: 0;
+}
+
+.title-image {
+  width: 524.7px;
+  height: 810.45px;
+  position: absolute;
+  right: 9%;
+  top: 12%
+}
+
+/* About Section */
+
+#about {
+   padding: 7% 15% 7%;
+  background-color: #fff;
+  position: relative;
+}
+
+/* Skills Section */
+.skills {
+  padding: 7% 15% 7%;
+  background-color: #CFB997;
+  position: relative;
+}
+
+.section-title {
+  text-align: center;
+  font-family: "Roboto Slab", sans serif;
+  font-weight: 800;
+  font-size: 2rem
+  /* padding: 3% auto 3%; */
+}
+
+.skill-table {
+
+margin: auto;
+}
+
+.skill-image {
+    height: 120px;
+    width: 120px;
+    background: #66553b;
+    border-radius: 25px;
+    padding: 20px;
+}
+
+.skill-icon {
+  padding-top: 0.75rem;
+  text-align: center;
+  color: #fff;
+  font-family: "Roboto", sans serif;
+  font-weight: 600;
+  font-size: 1.2rem
+
+}
+
+
+/* portfolio Section */
+.portfolio {
+  padding: 7% 15% 7%;
+  background-color: #fff;
+}
+
+/* Form labels */
+
+.no-label .control-label {
+        display: none;
+}
+/* Footer Section */
+
+#footer{
+    width: 100%;
+  background-color: #66553b;
+  padding: 5% 10% 1%;
+  color: #fff;
+  text-align: left;
+}
+
+.footer-nav {
+  color: #fff;
+  padding-bottom: 2rem;
+  letter-spacing: 0.1rem;
+}
+
+.footer-email-box {
+    margin-top: 0;
+    padding: 0 3.5rem 0 0;
+}
+
+.footer-icons {
+    margin-top: 2rem;
+    margin-right: 0.8rem;
+    color: #fff;
+}
+
+.footer-hr {
+    width: 100%;
+    border-top: 2px bold;
+}
+
+.copyright {
+    margin: auto;
+    text-align: center;
+    font-size: 0.75rem;
+}
+
+/* life-coaching link */
+.title_coach{
+  height: 750px;
+  color: #fff;
+}
+
+.lch-title {
+position: absolute;
+    margin-top: 14%;
+    margin-left: 20%;
+    text-align: center;
+}
+
+.lch-text {
+  font-family: font-family: 'Dancing Script', serif;
+  font-weight: 900;
+  font-size: 6rem;
+}
+
+.about_coach {
+ color: black;
+ padding: 5% 12% 5%;
+ text-align: left;
+}
+
+.abt-coach-img {
+     height: 50%;
+     weight: 50%;
+}
+
+.contact-form {
+    padding: 7% 35% 7%;
+}
+
+.contact-form-header {
+    padding-bottom: 3rem;
+}
+
+.contact-text {
+    text-align: center;
+}

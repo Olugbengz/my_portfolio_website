@@ -1,0 +1,138 @@
+{% extends 'base.html' %}
+
+
+{% block title %} Olugbenga Okundaye - Resume {% endblock %}
+
+
+
+{% block header %}
+        <div class="row">
+          <div class="col-lg-6 header-a">
+            <h1 class="header-text"><span style="font-weight: normal;"> I'm </span> Olugbenga Okundaye</h1>
+            <h2> a Python developer,</h2>
+            <p>and a <strong>Life Coach</strong>.</p>
+          </div>
+          <div class="col-md-6">
+            <img class="title-image" src="{{ url_for('static', filename='images/gbenga21.png')}}" alt="Olugbenga">
+          </div>
+        </div>
+{% endblock %}
+
+{% block content %}
+
+    <!-- About -->
+    <section id="about" >
+      <div class="container">
+        <h3 class="section-title">About Me</h3>
+
+        <div class="row pt-5">
+        <div class="col-lg-6 ">
+          <img src="{{ url_for('static', filename='images/port-img3.jpg') }}" style="border-radius: 10px;" alt="About Image">
+        </div>
+
+        <div class="col-lg-6 pt-2 pl-0">
+          <p class="content-text">
+            <h4>Objective</h4>
+
+            Seeking an opportunity to utilize my knowledge and experience in Python and
+            Django development in a software company with business culture that would
+            enable me to make contributions and add value, while I further develop my
+            skills set on both the front-end and backend development.
+          </p>
+          <p class="content-text">
+            <h4>Skills</h4>
+            • Familiarity with Python language and Object-Oriented Programming (OOP), as well as Django web framework.
+            • Experience with software development, debugging, and testing. • Proficient in HTML, CSS, and JavaScript.
+            • Knowledge of version control systems such as Git and GitHub. • Good problem-solving and analytical skills.
+             • Ability to learn new technologies quickly and work effectively in a team environment. • Hardworking and a good team player.
+          </p>
+        </div>
+
+      </div>
+      </div>
+      </section>
+
+    <!-- Resume -->
+    <section class="skills">
+      <h3 class="section-title" >Skills</h3>
+        <div class="row skill-table">
+             <div class="col-lg-2 col-md-4  p-4">
+              <img class="skill-image" src="{{ url_for('static', filename='images/python1.png') }}" alt="Python">
+                <div class="skill-icon">Python</div>
+            </div>
+
+             <div class="col-lg-2 col-md-4 p-4">
+                <img class="skill-image" src="{{ url_for('static', filename='images/dj-logo.jpg') }}" alt="Django">
+                        <div class="skill-icon">Django</div>
+                 </div>
+
+            <div class="col-lg-2 col-md-4 p-4">
+                    <img class="skill-image" src="{{ url_for('static', filename='images/flask1.png') }}" alt="Flask">
+                   <div class="skill-icon">Flask</div>
+                </div>
+
+            <div class="col-lg-2 col-md-4 p-4">
+                    <img class="skill-image" src="{{ url_for('static', filename='images/rest1.png') }}" alt="RESTful API">
+                    <div class="skill-icon">RESTful API</div>
+                </div>
+
+            <div class="col-lg-2 col-md-4  p-4">
+                    <img class="skill-image" src="{{ url_for('static', filename='images/elephant-bw.png') }}" alt="PostgreSQL">
+                    <div class="skill-icon">PostgreSQL</div>
+                </div>
+            <div class="col-lg-2 col-md-4 p-4">
+                <img class="skill-image" src="{{ url_for('static', filename='images/cssw.png') }}" alt="HTML">
+                 <div class="skill-icon">HTML</div>
+            </div>
+        </div>
+        <div class="row skill-table">
+             <div class="col-lg-2 col-md-4  p-4">
+              <img class="skill-image" src="{{ url_for('static', filename='images/html1.png') }}" alt="CSS">
+                <div class="skill-icon">CSS</div>
+            </div>
+
+             <div class="col-lg-2 col-md-4 p-4">
+                <img class="skill-image" src="{{ url_for('static', filename='images/js-logo.png') }}" alt="Javascript">
+                        <div class="skill-icon">Javascript</div>
+                 </div>
+        </div>
+    </section>
+
+
+
+    <!-- Portfolio -->
+    <section class="portfolio">
+      <h3 class="section-title">Portfolio</h3>
+
+<!-- 3 bootstrap cards go here for portfolio-->
+<div class="row pt-5">
+  <div class="col-lg-4">
+        <div class="card" style="width: 18rem;">
+          <img src="{{ url_for('static', filename='images/personal.png') }}" class="card-img-top" alt="project image">
+          <div class="card-body">
+            <h5 class="card-title">Portfolio Web</h5>
+            <a href="#" class="btn btn-primary">Python|Flask</a>
+          </div>
+        </div>
+  </div>
+  <div class="col-lg-4">
+        <div class="card" style="width: 18rem;">
+          <img src="{{ url_for('static', filename='images/port-project.png') }}" class="card-img-top" alt="project image">
+          <div class="card-body">
+            <h5 class="card-title">Blog</h5>
+            <a href="{{ url_for('home')}}" class="btn btn-primary">Python|Flask</a>
+          </div>
+        </div>
+  </div>
+  <div class="col-lg-4">
+
+  </div>
+</div>
+
+    </section>
+
+
+
+{% endblock %}
+
+

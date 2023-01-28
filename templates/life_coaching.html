@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block title %}The Extras - Olugbenga Okundaye {% endblock %}
+{% block styles %}
+    {{ super() }}
+    <style>
+        #title { background-image: url("static/images/coach.jpg") }
+
+    </style>
+{% endblock %}
+{% block header %}
+<section class="title_coach">
+<div class="row">
+     <div class="col-lg-12 m-auto">
+         <div class="lch-title">
+             <h1 class="lch-text"><em>The Extras</em></h1>
+            <p>Open up to find out your intrinsic <strong>Quality</strong> features, your <strong><em>desired</em></strong>  future is sure!</p>
+         </div>
+
+  </div>
+</div>
+    </section>
+{% endblock %}
+
+{% block content %}
+
+<section class="about_coach">
+    <div class="row">
+        <div class="col-lg-6 p-5">
+            <h3>Mind-Setting</h3>
+             <p>At some point in human's life there might be need for paradigm shift, especially when the "going gets stop 🛑" and
+                 life seems meaningless. Hitting that wall, mind resetting would be necessary. <p/>
+
+            <p> "<strong>Mind-unsetting</strong> " and "<strong>mind-resetting</strong> " are two important processes to adopt to move up to a new state of mind, where
+                things are seen differently.<p/>
+            <p>As in road traffic 🚥 situations, the red light holds a particular lane, while other lanes are cleared. During the waiting period,
+                the vehicle comes to rest to catch some breathe, while it  prepares to fire on once the lane is cleared.<p/>
+            <p>Life knows how to bring every human being to this stage, but only few people gets to see the cleared road,
+                the road that leads to breakthrough.<p/>
+            <p>When Red light flashes,  it is time to unset the mind, clear up your mind 🧠 by resetting 🏵 it for a new beginning.<p/>
+            <p>Remember, "<em>old wine will not fit in a new jar.</em>" </p>
+
+
+        </div>
+        <div class="col-lg-6 p-5">
+            <img class="abt-coach-img" src="{{ url_for('static', filename='images/mindset.png')}}" alt="Life changing process" />
+        </div>
+    </div>
+
+</section>
+
+
+{% endblock %}
+
