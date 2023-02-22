@@ -24,3 +24,46 @@
 </div>
     </section>
 {% endblock %}
+
+{% block content %}
+<section class="flex-container">
+
+    <div class="container-md">
+    {% for post in blog_posts %}
+    <div class="row">
+
+        <div class="col-2">
+            <img class="post-img" src="{{ post.img_url }}">
+        </div>
+
+    <div class="col-8">
+    <a href="{{ url_for('display_post', post_id=post.id) }}">
+        <h3>{{ post.title }}</h3>
+        <h5> {{ post.subtitle }}</h5>
+    </a>
+
+        <div>
+            <p>
+                Posted by: {{ post.author }} on {{ post.date }}
+            </p>
+        </div>
+
+
+<hr class="post-divider">
+ </div>
+
+</div>
+     {% endfor %}
+</div>
+
+    <div class="col-4">
+        <h1>Sidebar</h1>
+    </div>
+
+</section>
+
+
+
+
+
+{% endblock %}

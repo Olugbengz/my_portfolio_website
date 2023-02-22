@@ -2,16 +2,16 @@
 
 {% import "bootstrap/wtf.html" as wtf %}
 
-{% block title %}The Extras - Blog {% endblock %}
+{% block title %}Blog - Extra Qualities {% endblock %}
 {% block styles %}
     {{ super() }}
-    <style>
-        #title {
-        background-image: url("static/images/podcast_img.jpg")
+<!--    <style>-->
+<!--        #title {-->
+<!--&lt;!&ndash;        background-image: url("static/images/podcast_img.jpg")&ndash;&gt;-->
 
-        }
+<!--        }-->
 
-    </style>
+<!--    </style>-->
 {% endblock %}
 {% block header %}
 <section class="title_podcast">
@@ -19,7 +19,11 @@
      <div class="col-lg-12 m-auto">
          <div class="lch-title">
              <h1 class="lch-text"><em>New Post</em></h1>
-<!--            <p>Open up to find out your intrinsic <strong>Quality</strong> features, your <strong><em>desired</em></strong>  future is sure!</p>-->
+             <div class="title-p">
+                 <p>Search your heart to find out your intrinsic <strong>Quality</strong> features,
+                     harnessing them will guarantee your <strong><em>desired</em></strong> future!</p>
+             </div>
+
          </div>
 
   </div>
@@ -29,7 +33,7 @@
 {% block content %}
 
  <div class="contact-form">
-    {{ wtf.quick_form(form, novalidate=True, button_map={"submit":"btn btn-primary mt-3 p-2.5"}) }}
+    {{ wtf.quick_form(blog_form, novalidate=True, button_map={"submit":"btn btn-primary mt-3 p-2.5"}) }}
  </div>
 
 {% endblock %}

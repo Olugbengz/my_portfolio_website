@@ -1,5 +1,5 @@
 /* Title Section */
-#title {
+.title {
   height: 750px;
   /*background-image: url("/static/images/podcast.jpg");
   background-size: cover;
@@ -54,6 +54,34 @@ p {
 .navbar-brand {
   font-family: 'Lobster', cursive;
   font-weight: 800;
+}
+
+.post-img {
+    width: 120px;
+    height: 120px;
+    border-radius: 5px;
+
+}
+
+.post-divider {
+    width: 800px:
+    text-align: center;
+    border-bottom: 'solid' 4px #ccc;
+}
+
+.post-body {
+    text-align: left;
+    line-height: 1.5rem;
+    font-family: 'Roboto', sans-serif;
+    color: grey;
+    margin: 7% 0 7%;
+    margin-left: 200px;
+}
+
+.flex-container {
+    display: flex;
+    justify-content: space-around;
+    margin: 5%;
 }
 
 .nav-item {
@@ -194,6 +222,10 @@ position: absolute;
   font-family: font-family: 'Dancing Script', serif;
   font-weight: 900;
   font-size: 6rem;
+}
+
+.title-p {
+ width: 500px;
 }
 
 .about_coach {

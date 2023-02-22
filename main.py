@@ -14,6 +14,7 @@ app.secret_key = "MY_SECRET_KEY"
 Bootstrap(app)
 
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///subscribers.db"
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///blog_post.db"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
@@ -78,27 +79,38 @@ def life_coach():
     return render_template('life_coaching.html', form=email_form)
 
 
-@app.route('/blog')
+@app.route('/blog', methods=['GET', 'POST'])
 def blog_post():
     email_form = RegForm()
-    return render_template('blog_post.html', form=email_form)
+    posts = BlogPost.query.all()
+
+    return render_template('blog_post.html', blog_posts=posts, form=email_form)
 
 
-@app.route('/new_post')
+@app.route('/new_post', methods=['GET', 'POST'])
 def create_post():
-    form = CreatePostForm()
-    if form.validate_on_submit():
+    new_post_form = CreatePostForm()
+    email_form = RegForm()
+    if new_post_form.validate_on_submit():
         add_new_post = BlogPost(
-            title=form.title.data,
-            subtitle=form.subtitle.data,
-            body=form.body.data,
-            author=form.author.data,
-            post_date=date.today().strftime("%B %d, %Y")
+            title=new_post_form.title.data,
+            subtitle=new_post_form.subtitle.data,
+            body=new_post_form.body.data,
+            img_url=new_post_form.image.data,
+            author=new_post_form.author.data,
+            date=date.today().strftime("%B %d, %Y")
         )
         db.session.add(add_new_post)
         db.session.commit()
-        return redirect(url_for('home'))
-    return render_template('create_post.html', form=form)
+        return redirect(url_for('blog'))
+    return render_template('create_post.html', form=email_form, blog_form=new_post_form)
+
+
+@app.route('/blog/<int:post_id>', methods=["GET", "POST"])
+def display_post(post_id):
+    email_form = RegForm()
+    request_post = BlogPost.query.get(post_id)
+    return render_template('display_post.html', form=email_form, post=request_post)
 
 
 @app.route('/contact', methods=["GET", "POST"])
@@ -109,8 +121,10 @@ def contact_me():
         sender_email = message_form.email.data
         subject = message_form.subject.data
         message = message_form.body.data
-        my_email = os.environ['MY_EMAIL']
-        password = os.environ['MY_PASSWORD']
+        my_email = "sephade82@gmail.com"
+        # os.environ['MY_EMAIL']
+        password = "htaixaewtwsekgno"
+        # os.environ['MY_PASSWORD']
 
         with smtplib.SMTP("smtp.gmail.com", 587) as connection:
             connection.ehlo()
