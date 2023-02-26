@@ -4,10 +4,10 @@
 {% block styles %}
     {{ super() }}
     <style>
-        #title {
-        background-image: url("static/images/podcast_img.jpg")
+<!--        .title {-->
+<!--        background-image: url("static/images/podcast_img.jpg")-->
 
-        }
+<!--        }-->
 
     </style>
 {% endblock %}
@@ -44,7 +44,7 @@
 
         <div>
             <p>
-                Posted by: {{ post.author }} on {{ post.date }}
+                Posted by: <em>{{ post.author }} </em>on {{ post.date }}
             </p>
         </div>
 

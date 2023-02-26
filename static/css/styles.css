@@ -162,11 +162,6 @@ margin: auto;
   background-color: #fff;
 }
 
-/* Form labels */
-
-.no-label .control-label {
-        display: none;
-}
 /* Footer Section */
 
 #footer{
@@ -239,8 +234,23 @@ position: absolute;
      weight: 50%;
 }
 
+/* Web Forms */
+
 .contact-form {
-    padding: 7% 35% 7%;
+    padding: 7% 25% 7%;
+}
+
+.control-label {
+        font-size: 1.2rem;
+        margin-bottom: 0.35rem;
+        color: black;
+        font-weight: 900;
+        font-family: 'Roboto', serif;
+}
+
+.form-control {
+    padding: 2rem;
+    margin-bottom: 0.75rem;
 }
 
 .contact-form-header {

@@ -1,9 +1,12 @@
-from flask import Flask, render_template, url_for, redirect
+import flask
+from flask import Flask, render_template, url_for, redirect, flash, abort
 from flask_bootstrap import Bootstrap
 from flask_sqlalchemy import SQLAlchemy
 from flask_wtf import FlaskForm
-from wtforms import SubmitField, StringField, TextAreaField
-from wtforms.validators import DataRequired, Email
+from wtforms import SubmitField, StringField, TextAreaField, PasswordField
+from wtforms.validators import DataRequired, Email, URL
+from flask_login import LoginManager, UserMixin, login_user, login_required, current_user, logout_user
+from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import date
 import smtplib
 import os
@@ -15,16 +18,28 @@ Bootstrap(app)
 
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///subscribers.db"
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///blog_post.db"
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///users.db"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
+login_manager = LoginManager()
+login_manager.init_app(app)
 
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(user_id)
+
+
+#Tables
 class Subscriber(db.Model):
+    __tablename__ = "subscribers"
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(150), unique=True, nullable=False)
 
 
 class BlogPost(db.Model):
+    __tablename__ = "blog_post"
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(250), unique=True, nullable=False)
     subtitle = db.Column(db.String(250), nullable=False)
@@ -34,10 +49,19 @@ class BlogPost(db.Model):
     img_url = db.Column(db.String(250), nullable=False)
 
 
+class User(UserMixin, db.Model):
+    __tablename__ = "users"
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(250), nullable=False)
+    email = db.Column(db.String(200), unique=True, nullable=False)
+    password = db.Column(db.String(250), nullable=False)
+
+
 with app.app_context():
     db.create_all()
 
 
+#Forms
 class RegForm(FlaskForm):
     email = StringField(label="", validators=[DataRequired(), Email(message='Kindly enter correct email.')],
                         render_kw={"placeholder": "Email"})
@@ -47,7 +71,7 @@ class RegForm(FlaskForm):
 class CreatePostForm(FlaskForm):
     title = StringField('Title', validators=[DataRequired()])
     subtitle = StringField('Subtitle', validators=[DataRequired()])
-    body = TextAreaField('Body', validators=[DataRequired()])
+    body = TextAreaField('Body', validators=[DataRequired(), URL()])
     image = StringField('Image URL', validators=[DataRequired()])
     author = StringField('Author', validators=[DataRequired()])
     submit = SubmitField('Create Post')
@@ -62,6 +86,19 @@ class MessageForm(FlaskForm):
     submit = SubmitField("Send Message")
 
 
+class LoginForm(FlaskForm):
+    email = StringField(label='Email', validators=[DataRequired()])
+    password = PasswordField(label='Password', validators=[DataRequired()])
+    submit = SubmitField('Log In')
+
+
+class UserRegForm(FlaskForm):
+    name = StringField(label='Full Name', validators=[DataRequired()])
+    email = StringField(label='Email', validators=[DataRequired()])
+    password = PasswordField(label='Password', validators=[DataRequired()])
+    submit = SubmitField('Register')
+
+
 @app.route('/', methods=["GET", "POST"])
 def home():
     email_form = RegForm()
@@ -70,8 +107,59 @@ def home():
         db.session.add(new_subscriber)
         db.session.commit()
         return redirect(url_for("home"))
-    return render_template('index.html', form=email_form)
+    return render_template('index.html', form=email_form, authenticated_user=current_user.is_authenticated)
 
+
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    email_form = RegForm()
+    account_form = UserRegForm()
+    if account_form.validate_on_submit():
+        if User.query.filter_by(email=account_form.email.data).first():
+            flash("You've already signed up with that email, log in instead!", category="error")
+            return redirect(url_for('login'))
+
+        hashed_password = generate_password_hash(password=account_form.password.data, method="pbkdf2:sha256",
+                                                 salt_length=16)
+        new_acc = User(
+            name=account_form.name.data,
+            email=account_form.email.data,
+            password=hashed_password
+        )
+        db.session.add(new_acc)
+        db.session.commit()
+        return redirect(url_for('login'))
+    return render_template('register.html', reg_form=account_form, form=email_form,
+                           authenticated_user=current_user.is_authenticated)
+
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    email_form = RegForm()
+    login_form = LoginForm()
+    if login_form.validate_on_submit():
+        email = login_form.email.data
+        password = login_form.password.data
+        user = User.query.filter_by(email=email).first()
+
+        if not user:
+            flask.flash("Your email seems incorrect, please try again.", category="error")
+            return redirect(url_for('login'))
+        elif not check_password_hash(user.password, password):
+            flash('Password incorrect, please try again.', category="error")
+            return redirect(url_for('login'))
+        else:
+            login_user(user)
+            return redirect(url_for('blog_post'))
+    return render_template("login.html", login_form=login_form, authenticated_user=current_user.is_authenticated,
+                           form=email_form)
+
+
+
+@app.route('/logout')
+def logout():
+    logout_user()
+    return redirect(url_for('home'))
 
 @app.route('/life_coaching')
 def life_coach():
