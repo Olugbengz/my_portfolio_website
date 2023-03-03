@@ -17,8 +17,9 @@ app.secret_key = "MY_SECRET_KEY"
 Bootstrap(app)
 
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///subscribers.db"
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///blog_post.db"
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///users.db"
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///blog_posts"
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///comments"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
@@ -39,7 +40,7 @@ class Subscriber(db.Model):
 
 
 class BlogPost(db.Model):
-    __tablename__ = "blog_post"
+    __tablename__ = "blog_posts"
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(250), unique=True, nullable=False)
     subtitle = db.Column(db.String(250), nullable=False)
@@ -57,11 +58,17 @@ class User(UserMixin, db.Model):
     password = db.Column(db.String(250), nullable=False)
 
 
-with app.app_context():
-    db.create_all()
+class Comment(db.Model):
+    __tablename__ = "comments"
+    d = db.Column(db.Integer, primary_key=True)
+    text = db.Column(db.Text, nullable=False)
 
 
-#Forms
+# with app.app_context():
+#     db.create_all()
+# Forms
+
+
 class RegForm(FlaskForm):
     email = StringField(label="", validators=[DataRequired(), Email(message='Kindly enter correct email.')],
                         render_kw={"placeholder": "Email"})
@@ -155,24 +162,16 @@ def login():
                            form=email_form)
 
 
-
 @app.route('/logout')
 def logout():
     logout_user()
     return redirect(url_for('home'))
 
+
 @app.route('/life_coaching')
 def life_coach():
     email_form = RegForm()
-    return render_template('life_coaching.html', form=email_form)
-
-
-@app.route('/blog', methods=['GET', 'POST'])
-def blog_post():
-    email_form = RegForm()
-    posts = BlogPost.query.all()
-
-    return render_template('blog_post.html', blog_posts=posts, form=email_form)
+    return render_template('life_coaching.html', form=email_form, authenticated_user=current_user.is_authenticated)
 
 
 @app.route('/new_post', methods=['GET', 'POST'])
@@ -190,15 +189,25 @@ def create_post():
         )
         db.session.add(add_new_post)
         db.session.commit()
-        return redirect(url_for('blog'))
-    return render_template('create_post.html', form=email_form, blog_form=new_post_form)
+        return redirect(url_for('blog_post'))
+    return render_template('create_post.html', form=email_form, blog_form=new_post_form,
+                           authenticated_user=current_user.is_authenticated)
+
+
+@app.route('/blog', methods=['GET', 'POST'])
+def blog_post():
+    email_form = RegForm()
+    posts = BlogPost.query.all()
+    return render_template('blog_post.html', all_posts=posts, form=email_form,
+                           authenticated_user=current_user.is_authenticated)
 
 
 @app.route('/blog/<int:post_id>', methods=["GET", "POST"])
 def display_post(post_id):
     email_form = RegForm()
     request_post = BlogPost.query.get(post_id)
-    return render_template('display_post.html', form=email_form, post=request_post)
+    return render_template('display_post.html', form=email_form, post=request_post,
+                           authenticated_user=current_user.is_authenticated)
 
 
 @app.route('/contact', methods=["GET", "POST"])
@@ -209,18 +218,19 @@ def contact_me():
         sender_email = message_form.email.data
         subject = message_form.subject.data
         message = message_form.body.data
-        my_email = "sephade82@gmail.com"
-        # os.environ['MY_EMAIL']
-        password = "htaixaewtwsekgno"
-        # os.environ['MY_PASSWORD']
+        my_email = os.environ['MY_EMAIL']
+        password = os.environ['MY_PASSWORD']
 
         with smtplib.SMTP("smtp.gmail.com", 587) as connection:
             connection.ehlo()
             connection.starttls()
             connection.login(user=my_email, password=password)
-            connection.sendmail(from_addr=sender_email, to_addrs=my_email, msg=f"Subject:{subject}\n\n{message}\n You can reach me via this Email:{sender_email}")
+            connection.sendmail(from_addr=sender_email, to_addrs=my_email,
+                                msg=f"Subject:{subject}\n\n{message}\n You can reach me via this Email:{sender_email}")
+
             return redirect(url_for('life_coach'))
-    return render_template('contact.html', msg_form=message_form, form=email_form)
+    return render_template('contact.html', msg_form=message_form, form=email_form,
+                           authenticated_user=current_user.is_authenticated)
 
 
 # @app.route('/registration_success')
